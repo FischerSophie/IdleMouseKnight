@@ -1,26 +1,26 @@
 extends Node
 
-"""Object DUNGON = Dungon"
-"CharacterBody2D Player = Chacter_Base" 
-"List EQIPPMENt= EqimeTable"
-" List WOunds = WoundTable"
+"""Object DUNGON = Dungon
+List_EQIPPMENT= EqimeTable"
+List_Wounds = WoundTable"""
 
-# Called when the node enters the scene tree for the first time.
+var Dungon = {
+	"name": "GoblinCave",
+	"strengt" : 3,
+	"intelligent": 2,
+	"speed" : 3
+}
+@onready var player = $player
+	
 func _ready() -> void:
 	print("DungonINGame")
-	pass # Replace with function body.
-	"LoadRandom Dungon"
-	
-" func_playerBesuchtDungon"
-   "ersetze playersysmbol zu Dungonsymbol"
-   "Vergeliche Dungon Werte mit Player werten"
-   " Wenn Playerwert gößer als Dungonwert = sucsess"
-   "Bei sucsess = random Equipment"
-   " Call Function Attach Equipment to player"
-   " bei Niederlage = schaden + Schadenseffect
-   load new dungon"""
-	
+	_playerBesuchtDungon()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+
+
+func _playerBesuchtDungon() -> void:
+	if player.strengt >= Dungon.strengt:
+		print("Player is alive!")
+	else:
+		print("Player is dead!")
+		
