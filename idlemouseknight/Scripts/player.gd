@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
 var life = 100
-var strengt = 5
-var intelligence = 5
-const speed = 5
+var strengt = 28
+var intelligence = 15
+var speed = 18
 
 "List Equipment = eqipmentList"
 "List Wounds = woundlist"
