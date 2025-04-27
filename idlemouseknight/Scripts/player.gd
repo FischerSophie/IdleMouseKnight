@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var life = 100
-var strengt = 28
+var strength = 28
 var intelligence = 15
 var speed = 18
 

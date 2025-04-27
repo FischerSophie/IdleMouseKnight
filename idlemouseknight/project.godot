@@ -10,6 +10,7 @@ config_version=5
 
 [application]
 
+config/name="Idle Mouse Knight"
 run/main_scene="uid://dugxqj4vln4y0"
 config/features=PackedStringArray("4.4")
 
