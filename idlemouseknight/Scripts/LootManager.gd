@@ -75,16 +75,16 @@ func get_loot(type="item"):
 	match type:
 		"item":
 			for item in loot_table:
-				if loot_table[item]: available_loot.append(item)
+				if !loot_table[item]["looted"]: available_loot.append(item)
 		"wound":
 			for item in wound_table:
-				if wound_table[item]: available_loot.append(item)
+				if !wound_table[item]["looted"]: available_loot.append(item)
 
 	
 	if (available_loot.size() > 0):
 		chosen = available_loot[randi_range(0 , (available_loot.size()-1))]
-		loot_table[chosen] = false #dirty hack to set the item to false in both lists
-		wound_table[chosen] = false
+		if (type == "item"): loot_table[chosen]["looted"] = true #dirty hack to set the item to false in both lists
+		if (type == "wound"): wound_table[chosen]["looted"] = true
 		return(chosen)
 	else:
-		return(0)	
+		return(0)
