@@ -75,6 +75,7 @@ func encounter(type="favourable"):
 	
 
 func _playerBesuchtDungon():
+	player.update_stats()
 	var loot=""
 	for encounter in range(3):
 		var outcome = [0, "?"]
