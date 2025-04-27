@@ -10,7 +10,6 @@ var Dungon = {
 	"intelligent": 0,
 	"speed" : 0
 }
-@onready var player = $player
 	
 func _ready() -> void:
 	
@@ -19,8 +18,8 @@ func _ready() -> void:
 	var WR = 0 #Winrate
 	
 	print("DungonINGame")
-	for i in range(1): #WIE OFT SOLL PLAYER IN DEN DUNGEON GEHEN
-		if _playerBesuchtDungon(): #gibt bei erfolg 1 zurück und bei misserfolg 0
+	for i in range(2): #WIE OFT SOLL PLAYER IN DEN DUNGEON GEHEN
+		if _playerBesuchtDungon()[0]: #gibt bei erfolg 1 zurück und bei misserfolg 0
 			wins = wins + 1
 		else:
 			loses = loses + 1
@@ -33,28 +32,28 @@ func _ready() -> void:
 
 
 func encounter(type="favourable"):
-	var challenge = randi_range(1,20) + randi_range(1,20) #Challange Rating
+	var challenge = randi_range(1,20) + randi_range(1,20) #Challange Rating RANDIIIII alder
 	var roll = randi_range(1,20) #Player Roll to check against Challenge
 	var attribute = "NULL" #Attribute to check against
 	
 	var max_value = max(player.strength, player.intelligence, player.speed) #Find max of all ATTERIBUTES
 	var max_tied = [] #Stores all ATTRIBUTES that are max
 	if player.strength == max_value:
-		max_tied.append("player.strengt")
+		max_tied.append("strengt")
 	if player.intelligence == max_value:
-		max_tied.append("player.intelligence")
+		max_tied.append("intelligence")
 	if player.speed == max_value:
-		max_tied.append("player.speed")
+		max_tied.append("speed")
 	
 	
 	match type: #Check what type of encounter and (usually) set an ATTRIBUTE to check against
 		"favourable": #Take one of the best ATTRIBUTES
 			match max_tied[randi_range(0, (max_tied.size()-1))]:
-				"player.strengt":
+				"strengt":
 					attribute = "strength"
-				"player.intelligence":
+				"intelligence":
 					attribute = "intelligence"
-				"player.speed":
+				"speed":
 					attribute = "speed"
 				_:
 					assert(false, "NO ATTRIBUTE FOUND IN FAVOURABLE ENCOUNTER")
@@ -76,15 +75,24 @@ func encounter(type="favourable"):
 	
 
 func _playerBesuchtDungon():
+	var loot=""
 	for encounter in range(3):
 		var outcome = [0, "?"]
 		#print(encounter)
 		if encounter != 2:
 			outcome = encounter()
-			#print("(FAVOURABLE) The mouse meets a ", outcome[1], " challenge ... and ", ("WINS!" if outcome[0] == 1 else "LOSES."))
-			if !outcome[0]: return(0) #If outcome is not 1 the Player lost an encounter
+			print("(FAVOURABLE) The mouse meets a ", outcome[1], " challenge ... and ", ("WINS!" if outcome[0] == 1 else "LOSES."))
+			if !outcome[0]:  #If outcome is not 1 the Player lost an encounter
+				loot = LootManager.get_loot("wound")
+				#print(LootManager.get_loot("wound"))
+				return([0, loot])
 		else:
 			outcome = encounter("unfavourable")
-			#print("(UNFAVOURABLE) The mouse meets a ", outcome[1], " challenge ... and ", ("WINS!" if outcome[0] == 1 else "LOSES."))			
-			if !outcome[0]: return(0) #If outcome is not 1 the Player lost an encounter
-	return(1) #If it never retunred 0 its safe to assume all are won
+			print("(UNFAVOURABLE) The mouse meets a ", outcome[1], " challenge ... and ", ("WINS!" if outcome[0] == 1 else "LOSES."))			
+			if !outcome[0]: #If outcome is not 1 the Player lost an encounter
+				loot = LootManager.get_loot("wound")
+				return([0, loot])
+	
+	#If it never retunred 0 its safe to assume all are won
+	loot = LootManager.get_loot()
+	return([1, loot]) 

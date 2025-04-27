@@ -1,9 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://dugxqj4vln4y0"]
+[gd_scene load_steps=18 format=3 uid="uid://dugxqj4vln4y0"]
 
 [ext_resource type="Texture2D" uid="uid://c5864ek1k1hvw" path="res://Assets/World/Enviroment/world_tileset.png" id="2_1hyjh"]
 [ext_resource type="Script" uid="uid://n37ycmxfr55h" path="res://Scripts/VisitCastle.gd" id="2_oei6s"]
 [ext_resource type="Texture2D" uid="uid://dhvbpltb7lmvm" path="res://Assets/Player/Knights/knight.png" id="3_oei6s"]
 [ext_resource type="Script" uid="uid://vro84amjfv5k" path="res://Scripts/player.gd" id="3_qg1qk"]
+[ext_resource type="FontFile" uid="uid://d052djo8i60ig" path="res://Assets/Fonts/Comfortaa.ttf" id="5_ivo8v"]
+[ext_resource type="Script" uid="uid://qwxjlruulkun" path="res://Szene/button_dungeon.gd" id="6_xfs2n"]
 
 [sub_resource type="GDScript" id="GDScript_qg1qk"]
 
@@ -172,7 +174,19 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_xem0b"]
 radius = 5.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ivo8v"]
+bg_color = Color(0.482353, 0.247059, 0, 1)
+border_width_left = 30
+border_width_top = 30
+border_width_right = 30
+border_width_bottom = 30
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cvr0n"]
+bg_color = Color(0.207843, 0, 0.607843, 1)
+
 [node name="Game" type="Node2D"]
+texture_filter = 2
 script = SubResource("GDScript_qg1qk")
 
 [node name="Ground" type="TileMap" parent="."]
@@ -198,3 +212,54 @@ autoplay = "Idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node/player"]
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_xem0b")
+
+[node name="Label_Items" type="RichTextLabel" parent="Node"]
+texture_filter = 1
+clip_contents = false
+offset_left = -135.0
+offset_top = 20.0
+offset_right = 3240.0
+offset_bottom = 1345.0
+scale = Vector2(0.04, 0.04)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("5_ivo8v")
+theme_override_font_sizes/normal_font_size = 256
+theme_override_styles/normal = SubResource("StyleBoxFlat_ivo8v")
+bbcode_enabled = true
+text = "Items:
+"
+autowrap_mode = 0
+
+[node name="Label_Event" type="RichTextLabel" parent="Node"]
+texture_filter = 1
+clip_contents = false
+offset_left = -139.0
+offset_top = -77.0
+offset_right = 4561.0
+offset_bottom = 1223.0
+scale = Vector2(0.04, 0.04)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("5_ivo8v")
+theme_override_font_sizes/normal_font_size = 256
+theme_override_styles/normal = SubResource("StyleBoxFlat_ivo8v")
+bbcode_enabled = true
+text = "Test
+"
+autowrap_mode = 0
+
+[node name="Button_Dungeon" type="Button" parent="Node"]
+offset_left = 19.0
+offset_top = 38.0
+offset_right = 2319.0
+offset_bottom = 578.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 265
+theme_override_styles/normal = SubResource("StyleBoxFlat_cvr0n")
+text = "Dungeon"
+script = ExtResource("6_xfs2n")
+
+[connection signal="pressed" from="Node/Button_Dungeon" to="Node/Button_Dungeon" method="_on_pressed"]
